@@ -1,15 +1,15 @@
 sensor_kit_base_link:
-  blickfeld_cube1_front_base_link: # Cube1 Lidar
-    x: 0.0
-    y: 0.0
-    z: 0.0
-    roll: 0.0
-    pitch: 0.0
-    yaw: 0.0
-  gnss_link:
-    x: -0.1
-    y: 0.0
-    z: -0.2
-    roll: 0.0
-    pitch: 0.0
-    yaw: 0.0
+  lidar:
+    x: 0.000000
+    y: 0.000000
+    z: 0.000000
+    roll: 0.000000
+    pitch: 0.000000
+    yaw: 0.000000
+  zedxm_camera_link:
+    x: -0.03474494098980692
+    y: 0.025595800155495407
+    z: -0.08408040660145809
+    roll: -0.0014523239887258245
+    pitch: -0.01811221349270101
+    yaw: 1.5705781970363404
