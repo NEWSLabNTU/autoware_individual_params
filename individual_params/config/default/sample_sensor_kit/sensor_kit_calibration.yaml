@@ -1,8 +1,8 @@
 sensor_kit_base_link:
   camera0/camera_link:
-    x: 0.10731
-    y: 0.56343
-    z: -0.27697
+    x: 4.9
+    y: 0.56343-0.05
+    z: 1.247
     roll: -0.025
     pitch: 0.315
     yaw: 1.035
@@ -56,9 +56,9 @@ sensor_kit_base_link:
     pitch: 0.0
     yaw: 0.0
   hesai_lidar_base_link:
-    x: 0.0
+    x: 4.513
     y: 0.0
-    z: 0.0
+    z: 2.734
     roll: 0.0
     pitch: 0.0
     yaw: 1.575
@@ -84,16 +84,16 @@ sensor_kit_base_link:
     pitch: 0.71
     yaw: -1.580
   gnss_link:
-    x: -0.1
+    x: 0.0
     y: 0.0
-    z: -0.2
+    z: 2.401
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
   tamagawa/imu_link:
-    x: 0.0
+    x: 0.25
     y: 0.0
-    z: 0.0
-    roll: 3.14159265359
+    z: 0.675
+    roll: 0.0
     pitch: 0.0
-    yaw: 3.14159265359
+    yaw: 0.0
