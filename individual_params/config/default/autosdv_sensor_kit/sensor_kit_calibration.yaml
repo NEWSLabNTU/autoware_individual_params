@@ -12,7 +12,14 @@ sensor_kit_base_link:
     z: 0.0
     roll: 0.0
     pitch: 0.0
-    yaw: 0.0
+    # Mounting yaw, -12.66 deg. Derived from replay, not measured on the
+    # vehicle: with yaw 0.0 the localised heading sat 12.66 deg (sd 2.7, n=88)
+    # off the vehicle's own direction of travel on straight segments, which a
+    # car cannot do, and correcting it drops that to 0.07 deg and cuts NDT's
+    # per-frame correction from 0.127 m to 0.049 m. Replace with a measured
+    # extrinsic when the vehicle is next available; x/y/z here are still
+    # unmeasured. See docs/reports/cuda-ndt-coss-replay.md.
+    yaw: -0.2210
   robin_w: # Seyond Robin-W LiDAR
     x: 0.0
     y: 0.0
