@@ -1,0 +1,20 @@
+# imu_corrector parameters for the ZED X built-in IMU (imu_source:=zed).
+#
+# PLACEHOLDER. These are not measured values. Offsets are zeroed and the
+# standard deviations are carried over from the Xsens, which is the wrong
+# device. Until they are measured, gyro_bias_estimator has to converge from
+# scratch on every run and the reported covariances are fiction.
+#
+# To measure: park the cart, leave it undisturbed for several minutes, record
+# /sensing/camera/zed/imu/data, and take the per-axis mean (the offset) and
+# standard deviation of angular_velocity.
+#
+# See docs/roadmaps/2-zed-camera-integration.md, "Deferred to field work".
+/**:
+  ros__parameters:
+    angular_velocity_stddev_xx: 0.00339
+    angular_velocity_stddev_yy: 0.00339
+    angular_velocity_stddev_zz: 0.00339
+    angular_velocity_offset_x: 0.0
+    angular_velocity_offset_y: 0.0
+    angular_velocity_offset_z: 0.0
