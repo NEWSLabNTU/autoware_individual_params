@@ -5,4 +5,9 @@ base_link:
     z: 1.966
     roll: -0.016794
     pitch: 0.031978
-    yaw: 0.00
+    # Not from LCTK: target sessions cannot observe yaw against the vehicle
+    # axis. Measured from NDT on the 2026-09-24 indoor loops: on straights the
+    # travel direction led the heading by +1.74 deg (clockwise) and +1.75 deg
+    # (counter-clockwise, forward and reverse), which a cart cannot do. At
+    # -0.0305 the same replays measure +0.04 / -0.01 deg.
+    yaw: -0.0305
