@@ -20,6 +20,13 @@ sensor_kit_base_link:
     # extrinsic when the vehicle is next available; x/y/z here are still
     # unmeasured. See docs/reports/cuda-ndt-coss-replay.md.
     yaw: -0.2210
+  vlp16: # Velodyne VLP-16 LiDAR, initially mounted at the VLP-32C pose
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    roll: 0.0
+    pitch: 0.0
+    yaw: -0.2210
   robin_w: # Seyond Robin-W LiDAR
     x: 0.0
     y: 0.0
