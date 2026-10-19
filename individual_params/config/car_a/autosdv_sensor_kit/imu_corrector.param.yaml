@@ -1,0 +1,13 @@
+# Car A: COPIED FROM config/default/autosdv_sensor_kit/imu_corrector.param.yaml, NOT MEASURED
+# ON THIS CAR. Each instance starts from the kit default; replace these
+# values with car A's own once measured, and do not trust them before.
+# The default already carries car A's VLP16 mounting (the VLP-32C pose).
+#
+/**:
+  ros__parameters:
+    angular_velocity_stddev_xx: 0.00339
+    angular_velocity_stddev_yy: 0.00339
+    angular_velocity_stddev_zz: 0.00339
+    angular_velocity_offset_x: -0.005799
+    angular_velocity_offset_y: -0.007148
+    angular_velocity_offset_z: -0.001499

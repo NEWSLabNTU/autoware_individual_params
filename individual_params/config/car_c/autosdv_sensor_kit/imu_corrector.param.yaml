@@ -1,0 +1,12 @@
+# Car C: COPIED FROM config/default/autosdv_sensor_kit/imu_corrector.param.yaml, NOT MEASURED
+# ON THIS CAR. Each instance starts from the kit default; replace these
+# values with car C's own once measured, and do not trust them before.
+#
+/**:
+  ros__parameters:
+    angular_velocity_stddev_xx: 0.00339
+    angular_velocity_stddev_yy: 0.00339
+    angular_velocity_stddev_zz: 0.00339
+    angular_velocity_offset_x: -0.005799
+    angular_velocity_offset_y: -0.007148
+    angular_velocity_offset_z: -0.001499

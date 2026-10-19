@@ -1,0 +1,29 @@
+# Car A, the Velodyne car: autosdv_vehicle_interface's actuator.yaml values
+# (calibrated 2025-11-18, neutral retuned 390 -> 370 on 2025-12-22), restated so
+# that every car names its own. autosdv_vehicle_interface's test_car_params.py
+# fails if the two drift apart. car_a is also the instance the RC simulator and
+# the vehicle benches use, because the plant models actuator.yaml.
+#
+# config/<vehicle_id>/autosdv_vehicle/actuator.param.yaml holds what differs
+# between physical copies of the AutoSDV vehicle -- the ESC's neutral and brake
+# points, the steering servo's centre and ends, a measured steering ratio (only
+# once measured) -- and nothing else. vehicle_interface.launch.xml takes
+# vehicle_id:=<id> (required; the actuator refuses to start without one) and
+# loads this file last, after actuator.yaml and any per-launch
+# actuator_param_overrides, so a measured value wins over a lab's stand-in.
+/**:
+  ros__parameters:
+    ## Motor: stopped at 370; brake position 340.
+    init_pwm: 370
+    brake_pwm: 340
+
+    ## Steering: centre 489, +-50 counts. Lower PWM (439) = RIGHT turn,
+    # higher PWM (539) = LEFT turn (reversed hardware).
+    init_steer: 489
+    min_steer: 439
+    max_steer: 539
+
+    # No tire_angle_to_steer_ratio: car A's is not measured, so actuator.yaml's
+    # -1000 applies (it saturates the servo at 0.05 rad, known-config-defects.md
+    # section 8), or a launch's stand-in such as Lab 2's -143. Set it here once
+    # `just lab2 steer-fit` has measured it; then it wins over both.

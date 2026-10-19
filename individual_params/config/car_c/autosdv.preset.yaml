@@ -1,0 +1,25 @@
+# Car C's launch preset: what this physical car is, so that
+# `just launch vehicle_id:=car_c` needs no other argument. autosdv.launch.yaml
+# includes config/<vehicle_id>/autosdv.preset.yaml first; each arg below is
+# only a default, and any of them is overridable on the command line
+# (e.g. `just launch vehicle_id:=car_c use_gnss:=true`).
+# Car C: Seyond Robin-W + ZED X Mini. Its actuator values are NOT measured
+# (a copy of car B's); see autosdv_vehicle/actuator.param.yaml.
+#
+# Format: the perception/localization presets' (a launch file of arg defaults).
+launch:
+  - arg:
+      name: sensor_model
+      default: "autosdv_sensor_kit"
+
+  - arg:
+      name: vehicle_model
+      default: "autosdv_vehicle"
+
+  - arg:
+      name: sensor_suite
+      default: "robin_zed"
+
+  - arg:
+      name: use_gnss
+      default: "false"
