@@ -25,13 +25,21 @@
     reverse_start_pwm: 375
     reverse_arm_pwm: 340
 
-    ## Steering: NOT MEASURED ON CAR C. Car B's: centre 400, +-45 counts.
-    # Lower PWM (355) = RIGHT turn, higher PWM (445) = LEFT turn, as on the
-    # other cars.
-    init_steer: 400
-    min_steer: 355
-    max_steer: 445
+    ## Steering: PROVISIONAL (2026-10-20), not yet measured with steer-hold /
+    # steer-fit. On car C a lower PWM turns RIGHT and a higher PWM turns LEFT
+    # (seen while driving). The actuator computes init_steer + angle * ratio
+    # with Autoware's angle positive to the LEFT, so the ratio is POSITIVE here:
+    # car B's -132, copied before, sent a right command to a higher PWM, and
+    # lab2_straight_2m_1 curved 0.36 m left at full lock (-20 deg -> 445).
+    # The centre is about 408, not 400: that run still turned right at 402-406
+    # and turned left from about 410-413.
+    # Car C's wheels follow the servo only while the car rolls (by design of
+    # this chassis): at a standstill they keep their last angle. Centre the
+    # steering and roll the car a little before a run, and measure while driving.
+    init_steer: 408
+    min_steer: 363
+    max_steer: 453
 
-    # Car B's rough ratio, not car C's: replace it with `just lab2 steer-fit`'s
+    # Car B's magnitude with car C's sign: replace it with `just lab2 steer-fit`'s
     # result on car C.
-    tire_angle_to_steer_ratio: -132.0
+    tire_angle_to_steer_ratio: 132.0
