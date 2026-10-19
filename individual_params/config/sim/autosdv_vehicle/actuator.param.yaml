@@ -1,7 +1,8 @@
 # sim: the simulated nominal car, NEVER a physical car. Its values are
 # autosdv_vehicle_interface's actuator.yaml, restated so that the simulators
-# name an instance like every car does; autosdv_vehicle_interface's
-# test_car_params.py fails if the two drift apart. This is the car the RC
+# name an instance like every car does, plus the ESC thresholds actuator.yaml
+# leaves unmeasured; autosdv_vehicle_interface's test_car_params.py fails if
+# the two drift apart. This is the car the RC
 # simulator (`just sim rc`), Lab 2 Part 1 (`just lab2 sim`), the coach sim and
 # the vehicle benches (dry runs, no motor) model, because their plant models
 # actuator.yaml. Do not tune it to a car: a measured car is car_a, car_b,
@@ -16,6 +17,19 @@
     ## Motor: actuator.yaml's neutral 370, brake position 340.
     init_pwm: 370
     brake_pwm: 340
+
+    ## The simulated ESC's thresholds (docs/design/esc-pwm-model.md in
+    # AutoSDV): the cars' state machine with the sim's own numbers. The RC
+    # simulator's plant reads them from here (autosdv_rc_sim vehicle.yaml), so
+    # the plant and the actuator's ESC tracker agree. Still band 365..375 around
+    # 370; forward from rest at 376 and, once moving, above 375 (one count of
+    # hysteresis); below 365 brakes; reverse only after a pull to 335 or lower,
+    # which brake_pwm 340 and min_pwm 360 never reach.
+    forward_start_pwm: 376
+    forward_hold_pwm: 375
+    reverse_stop_pwm: 365
+    reverse_start_pwm: 355
+    reverse_arm_pwm: 335
 
     ## Steering: actuator.yaml's centre 489, +-50 counts. Lower PWM (439) =
     # RIGHT turn, higher PWM (539) = LEFT turn (reversed hardware).
