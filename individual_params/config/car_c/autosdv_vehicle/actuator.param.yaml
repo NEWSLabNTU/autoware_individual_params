@@ -31,14 +31,18 @@
     # with Autoware's angle positive to the LEFT, so the ratio is POSITIVE here:
     # car B's -132, copied before, sent a right command to a higher PWM, and
     # lab2_straight_2m_1 curved 0.36 m left at full lock (-20 deg -> 445).
-    # The centre is about 408, not 400: that run still turned right at 402-406
-    # and turned left from about 410-413.
+    # The servo has a DEAD BAND: the wheels do not move between about 385 and
+    # 412 (the user sees no difference between 400 and 408; lab2_straight_2m_4
+    # drove dead straight at 386-402 and only turned right near 380). Small
+    # tracker corrections did nothing, the error grew, and a late large one
+    # snaked the car; steer_deadband starts a command at the band's edge.
     # Car C's wheels follow the servo only while the car rolls (by design of
     # this chassis): at a standstill they keep their last angle. Centre the
     # steering and roll the car a little before a run, and measure while driving.
-    init_steer: 408
-    min_steer: 363
-    max_steer: 453
+    init_steer: 400
+    min_steer: 355
+    max_steer: 445
+    steer_deadband: 13
 
     # Car B's magnitude with car C's sign: replace it with `just lab2 steer-fit`'s
     # result on car C.
