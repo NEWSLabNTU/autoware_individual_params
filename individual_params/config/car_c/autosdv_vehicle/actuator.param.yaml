@@ -1,25 +1,29 @@
-# Car C: NOT MEASURED. EVERY VALUE BELOW IS CAR B'S
-# (car_b/autosdv_vehicle/actuator.param.yaml), copied until car C is
-# calibrated. Car C's ESC neutral may differ from car B's 395; if it does, a
-# "stop" command drives the car. Measure car C and replace every value below
-# with its own before trusting it. Select with the launch argument
+# Car C. The MOTOR values are measured (2026-10-19, keyboard_pwm_control,
+# 5-count steps); the STEERING values are still car B's, copied until car C's
+# servo is measured -- do not trust them. Select with the launch argument
 # vehicle_id:=car_c.
 /**:
   ros__parameters:
-    ## Motor: stopped at 395; barely moves forward at 405. Reverse needs the
-    # ESC's brake-then-neutral sequence: down to 365, back to 395, then below
-    # 395 drives backward (the ESC does this, not the actuator).
-    init_pwm: 395
-    brake_pwm: 365
+    ## Motor, measured 2026-10-19. The ESC has a neutral BAND, 380..390, where
+    # it never drives either way:
+    #   - from rest, forward needs >= 400 (395 does not start the car); once
+    #     moving, 395 holds it and <= 390 releases it.
+    #   - after any forward drive, below 380 BRAKES, it does not reverse. To
+    #     reverse: pull to 340, come back up to >= 380, then below 380 drives
+    #     backward.
+    # init_pwm is the middle of the band, 5 counts from either edge. brake_pwm
+    # is the pull that arms reverse (340 was tested; whether a weaker brake
+    # arms it is not known yet).
+    init_pwm: 385
+    brake_pwm: 340
 
-    ## Steering: centre 400, +-45 counts. Lower PWM (355) = RIGHT turn, higher
-    # PWM (445) = LEFT turn, as on the other cars.
+    ## Steering: NOT MEASURED ON CAR C. Car B's: centre 400, +-45 counts.
+    # Lower PWM (355) = RIGHT turn, higher PWM (445) = LEFT turn, as on the
+    # other cars.
     init_steer: 400
     min_steer: 355
     max_steer: 445
 
-    # Full lock (+-45 PWM) drives a circle of about 0.90 m radius, taken as the
-    # rear-axle centre: lock atan(0.319 / 0.90) = 0.340 rad, so 45 / 0.340 =
-    # 132 counts/rad. The sign is the stand-in's (lower PWM = right). One rough
-    # point, not a steer-fit: replace it with `just lab2 steer-fit`'s result.
+    # Car B's rough ratio, not car C's: replace it with `just lab2 steer-fit`'s
+    # result on car C.
     tire_angle_to_steer_ratio: -132.0
