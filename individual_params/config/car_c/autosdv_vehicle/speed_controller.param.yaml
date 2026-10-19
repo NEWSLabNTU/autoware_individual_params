@@ -3,13 +3,17 @@
 # dead band compensated, 0.5 m/s held at 0.503 +- 0.084 m/s with no stops.
 # Without it the car limit-cycles: it lurches at forward_start_pwm (400), the
 # PID backs off to forward_hold_pwm (390) or below, the ESC lets go, it
-# coasts, and repeats. The vehicle interface loads this after the car's
+# coasts, and repeats. kp 12 / ki 6 since 2026-10-20: ramped at 0.5 m/s^2 to
+# 0.8 m/s it reached 0.75 +- 0.10 m/s in the last second of a 4 s step, where
+# kp 8 / ki 4 reached 0.68 +- 0.14; the PWM for a speed drifts with the
+# battery, so the integrator, not a fixed map, closes the gap. The vehicle
+# interface loads this after the car's
 # actuator.param.yaml; speed_controller_params on the command line still
 # overrides it.
 /**:
   ros__parameters:
-    kp_speed: 8.0
-    ki_speed: 4.0
+    kp_speed: 12.0
+    ki_speed: 6.0
     esc_deadzone_compensation: true
     # The lowest drive command while moving: inside forward_hold_pwm (390)
     # .. forward_start_pwm (400)
