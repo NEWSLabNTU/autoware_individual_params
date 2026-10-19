@@ -39,9 +39,13 @@
     # Car C's wheels follow the servo only while the car rolls (by design of
     # this chassis): at a standstill they keep their last angle. Centre the
     # steering and roll the car a little before a run, and measure while driving.
+    # The ends are measured (2026-10-20, keyboard_pwm_control): full lock is
+    # 400 -/+ 80. The 355..445 copied from car B cost a third of the lock: with
+    # the dead band, the tightest turn was about R 1.3 m, and lab2_uturn_2 (R 1.1)
+    # ran wide out of the turn with the command pinned at the limit.
     init_steer: 400
-    min_steer: 355
-    max_steer: 445
+    min_steer: 320
+    max_steer: 480
     steer_deadband: 13
 
     # Car B's magnitude with car C's sign: replace it with `just lab2 steer-fit`'s
