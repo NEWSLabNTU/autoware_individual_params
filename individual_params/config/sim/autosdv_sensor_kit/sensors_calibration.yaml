@@ -1,0 +1,12 @@
+# sim: COPIED FROM config/default/autosdv_sensor_kit/sensors_calibration.yaml. The simulated
+# nominal car (see sim/autosdv_vehicle/actuator.param.yaml), never a physical
+# car: keep it the kit default, and do not put a car's measurement here.
+#
+base_link:
+  sensor_kit_base_link:
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0

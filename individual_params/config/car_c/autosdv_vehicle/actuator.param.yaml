@@ -11,11 +11,19 @@
     #   - after any forward drive, below 380 BRAKES, it does not reverse. To
     #     reverse: pull to 340, come back up to >= 380, then below 380 drives
     #     backward.
-    # init_pwm is the middle of the band, 5 counts from either edge. brake_pwm
-    # is the pull that arms reverse (340 was tested; whether a weaker brake
-    # arms it is not known yet).
+    #   - armed, 375, 370, ... drive backward; 380..390 stops but stays armed;
+    #     only >= 400 disarms (and drives forward).
+    # init_pwm is the middle of the band, 5 counts from either edge. The
+    # stopping brake must stay above the arming point 340, or every stop arms
+    # reverse: 375 is provisional (below the band, above 340); that it brakes
+    # without arming is not tested yet.
     init_pwm: 385
-    brake_pwm: 340
+    brake_pwm: 375
+    forward_start_pwm: 400
+    forward_hold_pwm: 390
+    reverse_stop_pwm: 380
+    reverse_start_pwm: 375
+    reverse_arm_pwm: 340
 
     ## Steering: NOT MEASURED ON CAR C. Car B's: centre 400, +-45 counts.
     # Lower PWM (355) = RIGHT turn, higher PWM (445) = LEFT turn, as on the

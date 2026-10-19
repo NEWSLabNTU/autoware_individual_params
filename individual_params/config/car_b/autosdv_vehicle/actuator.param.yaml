@@ -1,12 +1,24 @@
-# Car B, measured 2026-10-16. See car_a/autosdv_vehicle/actuator.param.yaml for
-# what this file is. Select with the launch argument vehicle_id:=car_b.
+# Car B: steering measured 2026-10-16, motor 2026-10-19. See
+# car_a/autosdv_vehicle/actuator.param.yaml for what this file is. Select with
+# the launch argument vehicle_id:=car_b.
 /**:
   ros__parameters:
-    ## Motor: stopped at 395; barely moves forward at 405. Reverse needs the
-    # ESC's brake-then-neutral sequence: down to 365, back to 395, then below
-    # 395 drives backward (the ESC does this, not the actuator).
-    init_pwm: 395
+    ## Motor, measured 2026-10-19 (keyboard_pwm_control, 5-count steps;
+    # docs/design/esc-pwm-model.md). Still at 385 and 390; forward starts at
+    # 395. Reverse: pull to 355, back to 385, then 380 and below drives
+    # backward; 385 does not move; 395 disarms (and drives forward). So the
+    # stop sits in 385..390 (390 here: 5 counts from forward, 10 from armed
+    # reverse), and the stopping brake must stay above 355 or every stop
+    # arms reverse.
+    init_pwm: 390
+    # Provisional: above the arming point 355 and below the stop; that it
+    # brakes without arming is not tested yet.
     brake_pwm: 365
+    forward_start_pwm: 395
+    reverse_stop_pwm: 385
+    reverse_start_pwm: 380
+    reverse_arm_pwm: 355
+    # forward_hold_pwm: not measured
 
     ## Steering: centre 400, +-45 counts. Lower PWM (355) = RIGHT turn, higher
     # PWM (445) = LEFT turn, as on the other cars.

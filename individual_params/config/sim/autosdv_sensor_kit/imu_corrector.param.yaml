@@ -1,0 +1,12 @@
+# sim: COPIED FROM config/default/autosdv_sensor_kit/imu_corrector.param.yaml. The simulated
+# nominal car (see sim/autosdv_vehicle/actuator.param.yaml), never a physical
+# car: keep it the kit default, and do not put a car's measurement here.
+#
+/**:
+  ros__parameters:
+    angular_velocity_stddev_xx: 0.00339
+    angular_velocity_stddev_yy: 0.00339
+    angular_velocity_stddev_zz: 0.00339
+    angular_velocity_offset_x: -0.005799
+    angular_velocity_offset_y: -0.007148
+    angular_velocity_offset_z: -0.001499

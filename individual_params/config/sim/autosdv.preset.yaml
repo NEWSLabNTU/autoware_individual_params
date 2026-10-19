@@ -1,0 +1,25 @@
+# sim's launch preset: the simulated nominal car (sim/autosdv_vehicle/
+# actuator.param.yaml), which the simulators pin and the vehicle benches default
+# to. autosdv.launch.yaml and waypoint_follow.launch.xml include
+# config/<vehicle_id>/autosdv.preset.yaml first; each arg below is only a
+# default, and any of them is overridable on the command line.
+# sim: Seyond Robin-W + ZED X Mini, the Lab 2 cars' suite (the benches start the
+# kit with its drivers off, so the suite only shapes the URDF and TF).
+#
+# Format: the perception/localization presets' (a launch file of arg defaults).
+launch:
+  - arg:
+      name: sensor_model
+      default: "autosdv_sensor_kit"
+
+  - arg:
+      name: vehicle_model
+      default: "autosdv_vehicle"
+
+  - arg:
+      name: sensor_suite
+      default: "robin_zed"
+
+  - arg:
+      name: use_gnss
+      default: "false"

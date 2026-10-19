@@ -1,8 +1,7 @@
-# Car A, the Velodyne car: autosdv_vehicle_interface's actuator.yaml values
-# (calibrated 2025-11-18, neutral retuned 390 -> 370 on 2025-12-22), restated so
-# that every car names its own. autosdv_vehicle_interface's test_car_params.py
-# fails if the two drift apart. car_a is also the instance the RC simulator and
-# the vehicle benches use, because the plant models actuator.yaml.
+# Car A, the Velodyne car. Motor measured 2026-10-19 (keyboard_pwm_control,
+# 5-count steps); steering is actuator.yaml's (centre 489, +-50), not
+# re-measured. The simulators no longer use this car: they have their own
+# instance, sim, which is actuator.yaml's values.
 #
 # config/<vehicle_id>/autosdv_vehicle/actuator.param.yaml holds what differs
 # between physical copies of the AutoSDV vehicle -- the ESC's neutral and brake
@@ -13,9 +12,20 @@
 # actuator_param_overrides, so a measured value wins over a lab's stand-in.
 /**:
   ros__parameters:
-    ## Motor: stopped at 370; brake position 340.
-    init_pwm: 370
-    brake_pwm: 340
+    ## Motor, measured 2026-10-19 (docs/design/esc-pwm-model.md). Still at 380;
+    # forward starts at 385. Reverse: pull to 345, back to 370, then 365 and
+    # below drives backward; once reversing, 370 keeps it going and 375 stops
+    # it; 385 disarms. So the stop is 380, the middle of 375..385, and the
+    # stopping brake must stay above 345 or every stop arms reverse.
+    init_pwm: 380
+    # Provisional: above the arming point 345 and below the stop; that it
+    # brakes without arming is not tested yet.
+    brake_pwm: 360
+    forward_start_pwm: 385
+    reverse_stop_pwm: 375
+    reverse_start_pwm: 365
+    reverse_arm_pwm: 345
+    # forward_hold_pwm: not measured
 
     ## Steering: centre 489, +-50 counts. Lower PWM (439) = RIGHT turn,
     # higher PWM (539) = LEFT turn (reversed hardware).
