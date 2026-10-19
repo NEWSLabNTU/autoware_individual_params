@@ -1,0 +1,16 @@
+# Car C's tuning of the default speed controller (AckermannSpeedPID), from the
+# car C session's step tests on the car (2026-10-19): with the ESC's forward
+# dead band compensated, 0.5 m/s held at 0.503 +- 0.084 m/s with no stops.
+# Without it the car limit-cycles: it lurches at forward_start_pwm (400), the
+# PID backs off to forward_hold_pwm (390) or below, the ESC lets go, it
+# coasts, and repeats. The vehicle interface loads this after the car's
+# actuator.param.yaml; speed_controller_params on the command line still
+# overrides it.
+/**:
+  ros__parameters:
+    kp_speed: 8.0
+    ki_speed: 4.0
+    esc_deadzone_compensation: true
+    # The lowest drive command while moving: inside forward_hold_pwm (390)
+    # .. forward_start_pwm (400)
+    drive_floor_pwm: 397

@@ -1,0 +1,8 @@
+# car_a's tuning of the default speed controller (AckermannSpeedPID): gains
+# (kp_speed, ki_speed, kd_speed, integral_limit, ...) and the ESC dead-band
+# compensation (esc_deadzone_compensation, drive_floor_pwm). The vehicle
+# interface loads it after this car's actuator.param.yaml; speed_controller_params
+# on the command line still overrides it. Empty: actuator.yaml's gains, no
+# compensation -- this car is not tuned yet.
+/**:
+  ros__parameters: {}
