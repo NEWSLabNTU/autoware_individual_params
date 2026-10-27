@@ -20,14 +20,21 @@
     reverse_arm_pwm: 355
     # forward_hold_pwm: not measured
 
-    ## Steering: centre 400, +-45 counts. Lower PWM (355) = RIGHT turn, higher
-    # PWM (445) = LEFT turn, as on the other cars.
+    ## Steering: centre 400. Higher PWM = RIGHT turn on this car, lower = LEFT
+    # (Lab 2 run lab2_uturn_3, 2026-10-27: a right command drove 445 and the
+    # car turned right). Ends measured 2026-10-27 on a stand with
+    # keyboard_pwm_control: the wheels reach the joystick's lock at 330 and
+    # 470 (-70/+70 counts); 355..445 before, which could not make the
+    # lab2_uturn's 1.1 m radius.
     init_steer: 400
-    min_steer: 355
-    max_steer: 445
+    min_steer: 330
+    max_steer: 470
 
-    # Full lock (+-45 PWM) drives a circle of about 0.90 m radius, taken as the
-    # rear-axle centre: lock atan(0.319 / 0.90) = 0.340 rad, so 45 / 0.340 =
-    # 132 counts/rad. The sign is the stand-in's (lower PWM = right). One rough
-    # point, not a steer-fit: replace it with `just lab2 steer-fit`'s result.
-    tire_angle_to_steer_ratio: -132.0
+    # 205 counts/rad, from lab2_uturn_3: held at +45 counts (445) the car drove
+    # R = 1.43 m (circle fit to 89 marker fixes, 8 mm residual; the gyro gives
+    # 1.39 m), so atan(0.319 / 1.43) = 0.22 rad and 45 / 0.22 = 205. Negative:
+    # a right (negative) tire angle needs a higher PWM. With it, max_steer_angle
+    # (0.349 rad) asks for 72 counts, so the ends above bind just before it.
+    # One point, not a steer-fit: replace it with `just lab2 steer-fit`'s result.
+    # Was -132, from a rough full-lock radius of 0.90 m that the car did not drive.
+    tire_angle_to_steer_ratio: -205.0
