@@ -1,6 +1,5 @@
 # Car A, the Velodyne car. Motor measured 2026-10-19 (keyboard_pwm_control,
-# 5-count steps); steering is actuator.yaml's (centre 489, +-50), not
-# re-measured. The simulators no longer use this car: they have their own
+# 5-count steps); steering ends measured 2026-10-27 (centre 489, +-95). The simulators no longer use this car: they have their own
 # instance, sim, which is actuator.yaml's values.
 #
 # config/<vehicle_id>/autosdv_vehicle/actuator.param.yaml holds what differs
@@ -27,11 +26,12 @@
     reverse_arm_pwm: 345
     # forward_hold_pwm: not measured
 
-    ## Steering: centre 489, +-50 counts. Lower PWM (439) = RIGHT turn,
-    # higher PWM (539) = LEFT turn (reversed hardware).
+    ## Steering: centre 489, full lock +-95 counts, measured 2026-10-27 (was
+    # actuator.yaml's +-50, which left about half the lock unused). Lower PWM
+    # (394) = RIGHT turn, higher PWM (584) = LEFT turn (reversed hardware).
     init_steer: 489
-    min_steer: 439
-    max_steer: 539
+    min_steer: 394
+    max_steer: 584
 
     # No tire_angle_to_steer_ratio: car A's is not measured, so actuator.yaml's
     # -1000 applies (it saturates the servo at 0.05 rad, known-config-defects.md
