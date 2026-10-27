@@ -35,11 +35,13 @@
     max_steer: 584
 
     # Steering ratio, measured 2026-10-27: at full right lock (PWM 584, +95
-    # counts) the vehicle centre drives a circle 1.66 m across. That is a
-    # rear-axle radius of sqrt(0.83^2 - (0.319/2)^2) = 0.815 m, a bicycle angle
-    # of atan(0.319 / 0.815) = 0.373 rad, so 95 / 0.373 = 254 (steer_cal's
-    # convention). Negative: a right command raises the PWM. lab2_uturn_2, at
-    # Lab 2's stand-in -143, agrees: R 1.49 m at 50 counts gives 237. The
-    # actuator clamps the command at max_steer_angle 0.349 rad, which reaches
-    # about 90 of the 95 counts (R 0.88 m); the 1.1 m U-turn needs about 73.
-    tire_angle_to_steer_ratio: -254.0
+    # counts) the vehicle centre drives a circle 1.66 m across, a rear-axle
+    # radius of sqrt(0.83^2 - (0.319/2)^2) = 0.815 m. The actuator multiplies
+    # the ratio by the Ackermann AVERAGE wheel angle (actuator_core), here
+    # (atan(0.319/0.6835) + atan(0.319/0.9465)) / 2 = 0.381 rad, so
+    # 95 / 0.381 = 249 (car B's file uses the same convention). Negative: a
+    # right command raises the PWM. lab2_uturn_2, at Lab 2's stand-in -143,
+    # agrees: R 1.49 m at 50 counts. The actuator clamps the command at
+    # max_steer_angle 0.349 rad, which reaches about 88 of the 95 counts
+    # (R 0.88 m); the 1.1 m U-turn needs about 71.
+    tire_angle_to_steer_ratio: -249.0
