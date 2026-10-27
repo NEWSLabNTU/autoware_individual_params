@@ -27,13 +27,18 @@
     # forward_hold_pwm: not measured
 
     ## Steering: centre 489, full lock +-95 counts, measured 2026-10-27 (was
-    # actuator.yaml's +-50, which left about half the lock unused). Lower PWM
-    # (394) = RIGHT turn, higher PWM (584) = LEFT turn (reversed hardware).
+    # actuator.yaml's +-50, which left about half the lock unused). Higher PWM
+    # (584) = RIGHT turn, lower PWM (394) = LEFT turn: in lab2_uturn_2 a right
+    # command raised the PWM and the car turned right (as on car B).
     init_steer: 489
     min_steer: 394
     max_steer: 584
 
-    # No tire_angle_to_steer_ratio: car A's is not measured, so actuator.yaml's
-    # -1000 applies (it saturates the servo at 0.05 rad, known-config-defects.md
-    # section 8), or a launch's stand-in such as Lab 2's -143. Set it here once
-    # `just lab2 steer-fit` has measured it; then it wins over both.
+    # Steering ratio, measured from lab2_uturn_2 (2026-10-27): with Lab 2's
+    # stand-in -143 the tracker sat at max_steer_angle (0.349 rad = 50 counts,
+    # PWM 539) through the turn, and a circle fitted to the marker fixes there
+    # gives R 1.49 m (rms 1.7 cm), so 50 / atan(0.319 / 1.49) = 237. The gyro's
+    # yaw rate, with the wheel speed corrected for car A's 2.1x over-read, gives
+    # R 1.6 m (254). One circle only: refine with `just lab2 steer-fit` (three
+    # or more). At 0.349 rad this reaches 83 of the 95 counts.
+    tire_angle_to_steer_ratio: -237.0
