@@ -30,11 +30,19 @@
     min_steer: 330
     max_steer: 470
 
-    # 205 counts/rad, from lab2_uturn_3: held at +45 counts (445) the car drove
-    # R = 1.43 m (circle fit to 89 marker fixes, 8 mm residual; the gyro gives
-    # 1.39 m), so atan(0.319 / 1.43) = 0.22 rad and 45 / 0.22 = 205. Negative:
-    # a right (negative) tire angle needs a higher PWM. With it, max_steer_angle
-    # (0.349 rad) asks for 72 counts, so the ends above bind just before it.
-    # One point, not a steer-fit: replace it with `just lab2 steer-fit`'s result.
-    # Was -132, from a rough full-lock radius of 0.90 m that the car did not drive.
-    tire_angle_to_steer_ratio: -205.0
+    # 170 counts/rad, measured 2026-10-27 with keyboard_pwm_control: held at
+    # 330 (-70 counts, the LEFT lock; the tool labels it "right", wrongly for
+    # this car) the car drives a 1.5 m diameter circle, R = 0.75 m. The
+    # actuator converts a command through the Ackermann average angle, which
+    # for R = 0.75 m is 0.412 rad, so 70 / 0.412 = 170. Negative: a right
+    # (negative) tire angle needs a higher PWM.
+    #
+    # The right side may be weaker. In lab2_uturn_3, held at +45 counts (445),
+    # the car drove R = 1.43 m (circle fit to the marker fixes; the gyro gives
+    # 1.39 m): 45 / 0.22 = 205 counts/rad. At -170, max_steer_angle (0.349 rad)
+    # reaches 60 counts, so the right turn stops at 460, which by that 205
+    # extrapolates to R ~ 1.07 m against lab2_uturn's 1.1 m. Measure the 470
+    # side's diameter the same way; if it is wider than ~1.5 m, the ratio for
+    # this right-hand course is the right side's.
+    # Was -205 (that right-side point), and -132 before it (a rough 0.90 m).
+    tire_angle_to_steer_ratio: -170.0
