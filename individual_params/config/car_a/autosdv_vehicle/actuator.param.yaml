@@ -34,11 +34,12 @@
     min_steer: 394
     max_steer: 584
 
-    # Steering ratio, measured from lab2_uturn_2 (2026-10-27): with Lab 2's
-    # stand-in -143 the tracker sat at max_steer_angle (0.349 rad = 50 counts,
-    # PWM 539) through the turn, and a circle fitted to the marker fixes there
-    # gives R 1.49 m (rms 1.7 cm), so 50 / atan(0.319 / 1.49) = 237. The gyro's
-    # yaw rate, with the wheel speed corrected for car A's 2.1x over-read, gives
-    # R 1.6 m (254). One circle only: refine with `just lab2 steer-fit` (three
-    # or more). At 0.349 rad this reaches 83 of the 95 counts.
-    tire_angle_to_steer_ratio: -237.0
+    # Steering ratio, measured 2026-10-27: at full right lock (PWM 584, +95
+    # counts) the vehicle centre drives a circle 1.66 m across. That is a
+    # rear-axle radius of sqrt(0.83^2 - (0.319/2)^2) = 0.815 m, a bicycle angle
+    # of atan(0.319 / 0.815) = 0.373 rad, so 95 / 0.373 = 254 (steer_cal's
+    # convention). Negative: a right command raises the PWM. lab2_uturn_2, at
+    # Lab 2's stand-in -143, agrees: R 1.49 m at 50 counts gives 237. The
+    # actuator clamps the command at max_steer_angle 0.349 rad, which reaches
+    # about 90 of the 95 counts (R 0.88 m); the 1.1 m U-turn needs about 73.
+    tire_angle_to_steer_ratio: -254.0
