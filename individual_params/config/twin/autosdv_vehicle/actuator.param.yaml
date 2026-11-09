@@ -1,0 +1,50 @@
+# twin: car A as known, for car A's digital twin on Isaac Sim (AutoSDV roadmap 15).
+# This file is car_a's, copied unchanged on 2026-11-10; keep it in step with car_a.
+#
+# Car A, the Velodyne car. Motor measured 2026-10-19 (keyboard_pwm_control,
+# 5-count steps); steering ends measured 2026-10-27 (centre 489, +-95). The simulators no longer use this car: they have their own
+# instance, sim, which is actuator.yaml's values.
+#
+# config/<vehicle_id>/autosdv_vehicle/actuator.param.yaml holds what differs
+# between physical copies of the AutoSDV vehicle -- the ESC's neutral and brake
+# points, the steering servo's centre and ends, a measured steering ratio (only
+# once measured) -- and nothing else. vehicle_interface.launch.xml takes
+# vehicle_id:=<id> (required; the actuator refuses to start without one) and
+# loads this file last, after actuator.yaml and any per-launch
+# actuator_param_overrides, so a measured value wins over a lab's stand-in.
+/**:
+  ros__parameters:
+    ## Motor, measured 2026-10-19 (docs/design/esc-pwm-model.md). Still at 380;
+    # forward starts at 385. Reverse: pull to 345, back to 370, then 365 and
+    # below drives backward; once reversing, 370 keeps it going and 375 stops
+    # it; 385 disarms. So the stop is 380, the middle of 375..385, and the
+    # stopping brake must stay above 345 or every stop arms reverse.
+    init_pwm: 380
+    # Provisional: above the arming point 345 and below the stop; that it
+    # brakes without arming is not tested yet.
+    brake_pwm: 360
+    forward_start_pwm: 385
+    reverse_stop_pwm: 375
+    reverse_start_pwm: 365
+    reverse_arm_pwm: 345
+    # forward_hold_pwm: not measured
+
+    ## Steering: centre 489, full lock +-95 counts, measured 2026-10-27 (was
+    # actuator.yaml's +-50, which left about half the lock unused). Higher PWM
+    # (584) = RIGHT turn, lower PWM (394) = LEFT turn: in lab2_uturn_2 a right
+    # command raised the PWM and the car turned right (as on car B).
+    init_steer: 489
+    min_steer: 394
+    max_steer: 584
+
+    # Steering ratio, measured 2026-10-27: at full right lock (PWM 584, +95
+    # counts) the vehicle centre drives a circle 1.66 m across, a rear-axle
+    # radius of sqrt(0.83^2 - (0.319/2)^2) = 0.815 m. The actuator multiplies
+    # the ratio by the Ackermann AVERAGE wheel angle (actuator_core), here
+    # (atan(0.319/0.6835) + atan(0.319/0.9465)) / 2 = 0.381 rad, so
+    # 95 / 0.381 = 249 (car B's file uses the same convention). Negative: a
+    # right command raises the PWM. lab2_uturn_2, at Lab 2's stand-in -143,
+    # agrees: R 1.49 m at 50 counts. The actuator clamps the command at
+    # max_steer_angle 0.349 rad, which reaches about 88 of the 95 counts
+    # (R 0.88 m); the 1.1 m U-turn needs about 71.
+    tire_angle_to_steer_ratio: -249.0

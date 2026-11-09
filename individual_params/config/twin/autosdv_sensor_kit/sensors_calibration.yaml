@@ -1,0 +1,14 @@
+# twin: car A as known, for car A's digital twin on Isaac Sim (AutoSDV roadmap 15).
+# The sensor kit's origin is car A's VLP-16 optical centre, as the golf cart's kit sits on its
+# VLP-32C. ESTIMATED FROM PHOTOS (2026-11-10), not measured: scaled by the 0.319 m wheelbase
+# and the VLP-16's 103 x 72 mm housing, two side views agreeing to 1 cm; +-1.5 cm.
+# The twin's vehicle spec (autosdv_twin vehicle/autosdv_car_a.yaml) holds the same numbers,
+# and autosdv_twin's test fails when the two disagree. car_a itself is unchanged.
+base_link:
+  sensor_kit_base_link:
+    x: 0.066
+    y: 0.0
+    z: 0.36
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0

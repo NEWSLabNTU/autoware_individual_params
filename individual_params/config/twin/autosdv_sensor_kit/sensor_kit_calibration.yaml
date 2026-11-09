@@ -1,0 +1,97 @@
+# twin: car A as known, for car A's digital twin on Isaac Sim (AutoSDV roadmap 15).
+# The kit's origin is car A's VLP-16 (sensors_calibration.yaml). vlp16, zedxm_camera_link,
+# gnss_base_link and imu_link are ESTIMATED FROM PHOTOS (2026-11-10), not measured, in this
+# frame: ZED centre at base_link (0.32, 0, 0.14) +-2 cm, GNSS puck top at (-0.03, -0.07,
+# 0.26) +-3 cm, IMU (the MPU9250 slot, unused: car A reads the ZED's IMU) mid-chassis at
+# (0.16, 0, 0.08), assumed. All rotations 0: car_a's VLP-16 yaw -0.221 came from replay, not
+# the mount, and the photos show none. Every other entry is car_a's, unchanged.
+#
+sensor_kit_base_link:
+  cube1: # Blickfeld Cube 1 LiDAR
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
+  vlp32c: # Velodyne VLP-32C LiDAR
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    roll: 0.0
+    pitch: 0.0
+    # Mounting yaw, -12.66 deg. Derived from replay, not measured on the
+    # vehicle: with yaw 0.0 the localised heading sat 12.66 deg (sd 2.7, n=88)
+    # off the vehicle's own direction of travel on straight segments, which a
+    # car cannot do, and correcting it drops that to 0.07 deg and cuts NDT's
+    # per-frame correction from 0.127 m to 0.049 m. Replace with a measured
+    # extrinsic when the vehicle is next available; x/y/z here are still
+    # unmeasured. See docs/reports/cuda-ndt-coss-replay.md.
+    yaw: -0.2210
+  vlp16: # Velodyne VLP-16 LiDAR, initially mounted at the VLP-32C pose
+    x: 0
+    y: 0
+    z: 0
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
+  robin_w: # Seyond Robin-W LiDAR
+    x: 0.0
+    y: 0.0
+    z: 0.0
+    # Rotation to convert from Robin-W coords (X:up, Y:right, Z:forward) to ROS coords (X:forward, Y:left, Z:up)
+    # Robin-W: [X:up, Y:right, Z:forward] -> ROS: [X:forward, Y:left, Z:up]
+    # Step 1: Rotate -90° around Y-axis (pitch = -π/2) to bring X from up to forward, Z from forward to down
+    # Step 2: Rotate 180° around X-axis (roll = π) to flip Z from down to up, Y from right to left
+    roll: 3.14159
+    pitch: -1.5708
+    yaw: 0.0
+  zedxm_camera_link:
+    x: 0.254
+    y: 0.0
+    z: -0.22
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
+  imu_link:
+    x: 0.094
+    y: 0.0
+    z: -0.28
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
+  gnss_base_link:
+    x: -0.096
+    y: -0.07
+    z: -0.1
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0
+  usb_camera_front:
+    x: 0.5      # 50cm forward from sensor_kit_base
+    y: 0.0      # centered
+    z: 0.3      # 30cm up
+    roll: 0.0
+    pitch: 0.0
+    yaw: 0.0    # facing forward
+  usb_camera_rear:
+    x: -0.5     # 50cm backward from sensor_kit_base
+    y: 0.0      # centered
+    z: 0.3      # 30cm up
+    roll: 0.0
+    pitch: 0.0
+    yaw: 3.14159 # facing backward (180 degrees)
+  usb_camera_left:
+    x: 0.0      # centered front-back
+    y: 0.4      # 40cm to the left
+    z: 0.3      # 30cm up
+    roll: 0.0
+    pitch: 0.0
+    yaw: 1.5708 # facing left (90 degrees)
+  usb_camera_right:
+    x: 0.0      # centered front-back
+    y: -0.4     # 40cm to the right
+    z: 0.3      # 30cm up
+    roll: 0.0
+    pitch: 0.0
+    yaw: -1.5708 # facing right (-90 degrees)
