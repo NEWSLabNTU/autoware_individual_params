@@ -30,6 +30,11 @@
     reverse_stop_pwm: 365
     reverse_start_pwm: 355
     reverse_arm_pwm: 335
+    # Deliberate reverse (reverse_enabled) drives at or below reverse_start_pwm
+    # 355, under min_pwm 360, so its floor is set here rather than min_pwm moved
+    # (the RC simulator needs reverse_arm < min_pwm < reverse_stop). 345: inside
+    # reverse_arm_pwm + 1 .. reverse_start_pwm (336..355), clear of the arm point.
+    reverse_floor_pwm: 345
 
     ## Steering: actuator.yaml's centre 489, +-50 counts. Lower PWM (439) =
     # RIGHT turn, higher PWM (539) = LEFT turn (reversed hardware).
